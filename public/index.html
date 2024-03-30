@@ -1,0 +1,31 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excel Data Display</title>
+</head>
+<body>
+  <div id="dataContainer"></div>
+
+  <script>
+    fetch('/data')
+      .then(response => response.json())
+      .then(data => {
+        const dataContainer = document.getElementById('dataContainer');
+        data.forEach(row => {
+          const rowElement = document.createElement('div');
+          Object.values(row).forEach(value => {
+            const cell = document.createElement('span');
+            cell.textContent = value;
+            rowElement.appendChild(cell);
+          });
+          dataContainer.appendChild(rowElement);
+        });
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  </script>
+</body>
+</html>
+
